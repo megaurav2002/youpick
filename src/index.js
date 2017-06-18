@@ -10,9 +10,11 @@ import Header from "./header/Header";
 ReactDOM.render(
   <div>
     <Header />
-    <BrowserRouter>
-      <Routes />
-    </BrowserRouter>
+    <div className="content">
+      <BrowserRouter>
+        <Routes />
+      </BrowserRouter>
+    </div>
   </div>,
   document.getElementById("root")
 );

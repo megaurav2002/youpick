@@ -6,11 +6,9 @@ import Home from "./Home";
 const FourOhFour = () => <h1>404</h1>;
 
 const Routes = () =>
-  <div>
-    <Switch>
-      <Route exact path="/" component={Home} />
-      <Route component={FourOhFour} />
-    </Switch>
-  </div>;
+  <Switch>
+    <Route exact path="/" component={Home} />
+    <Route component={FourOhFour} />
+  </Switch>;
 
 export default Routes;

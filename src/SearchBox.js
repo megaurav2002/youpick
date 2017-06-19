@@ -1,5 +1,11 @@
 import React from "react";
+import { Input } from "reactstrap";
 
-const SearchBox = () => <div>SearchBox</div>;
+const SearchBox = () =>
+  <Input
+    name="postcode"
+    id="postcode"
+    placeholder="Enter your postcode here"
+  />;
 
 export default SearchBox;

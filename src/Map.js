@@ -16,28 +16,39 @@ const GettingStartedGoogleMap = withGoogleMap(props =>
     defaultZoom={4}
     defaultCenter={{ lat: -25.363882, lng: 131.044922 }}
     onClick={props.onMapClick}
-  />
+  >
+    {props.markers.map(marker =>
+      <Marker
+        {...marker}
+        onRightClick={() => props.onMarkerRightClick(marker)}
+      />
+    )}
+  </GoogleMap>
 );
 
 class Map extends React.Component {
-  state = {
-    markers: [
-      {
-        position: {
-          lat: 25.0112183,
-          lng: 121.52067570000001
-        },
-        key: `Taiwan`,
-        defaultAnimation: 2
-      }
-    ]
-  };
+  constructor(props) {
+    super(props);
 
-  handleMapLoad = this.handleMapLoadHandler.bind(this);
-  handleMapClick = this.handleMapClickHandler.bind(this);
-  handleMarkerRightClick = this.handleMarkerRightClickHandler.bind(this);
+    this.state = {
+      markers: [
+        {
+          position: {
+            lat: 25.0112183,
+            lng: 121.52067570000001
+          },
+          key: `Taiwan`,
+          defaultAnimation: 2
+        }
+      ]
+    };
+    //  debugger;
+    //   this.handleMapLoad.bind(this);
+    //this.handleMapClick.bind(this);
+    //this.handleMarkerRightClick.bind(this);
+  }
 
-  handleMapLoadHandler(map) {
+  handleMapLoad(map) {
     this._mapComponent = map;
     if (map) {
       console.log(map.getZoom());
@@ -48,7 +59,7 @@ class Map extends React.Component {
    * This is called when you click on the map.
    * Go and try click now.
    */
-  handleMapClickHandler(event) {
+  handleMapClick(event) {
     const nextMarkers = [
       ...this.state.markers,
       {
@@ -69,7 +80,7 @@ class Map extends React.Component {
     }
   }
 
-  handleMarkerRightClickHandler(targetMarker) {
+  handleMarkerRightClick(targetMarker) {
     /*
      * All you modify is data, and the view is driven by data.
      * This is so called data-driven-development. (And yes, it's now in
@@ -83,13 +94,14 @@ class Map extends React.Component {
     });
   }
   render() {
+    console.log(`Markers ${JSON.stringify(this.state.markers)}`);
     return (
       <MapContainer>
         <GettingStartedGoogleMap
           containerElement={<div style={{ height: `100%` }} />}
           mapElement={<div style={{ height: `100%` }} />}
-          onMapLoad={this.handleMapLoad}
-          onMapClick={this.handleMapClick}
+          onMapLoad={() => this.handleMapLoad}
+          onMapClick={() => this.handleMapClick}
           markers={this.state.markers}
           onMarkerRightClick={this.handleMarkerRightClick}
         />
